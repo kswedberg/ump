@@ -15,7 +15,7 @@
   },
   "main": "lib/ump.js",
   "bin": {
-    "bump": "bin/ump.js"
+    "ump": "bin/ump.js"
   },
   "author": {
     "name": "Karl Swedberg",

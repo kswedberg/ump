@@ -38,7 +38,7 @@ var options = {
   },
   debug: {
     abbr: 'd',
-    help: 'If set, bump will run in debug mode, outputting a json file instead of doing something',
+    help: 'If set, ump will run in debug mode, outputting a json file instead of doing something',
     flag: true
   }
 };
