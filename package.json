@@ -1,0 +1,44 @@
+{
+  "name": "ump",
+  "title": "ump",
+  "version": "0.0.1",
+  "description": "Bump without the B",
+  "scripts": {
+    "test": "npm run test:clean && npm run test:pre && npm run test:run",
+    "test:clean": "rm -rf ./test/testarea",
+    "test:pre": "mkdir \"./test/testarea\"",
+    "test:run": "mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kswedberg/ump.git"
+  },
+  "main": "lib/ump.js",
+  "bin": {
+    "bump": "bin/ump.js"
+  },
+  "author": {
+    "name": "Karl Swedberg",
+    "email": "kswedberg@gmail.com",
+    "url": "https://karlswedberg.com/"
+  },
+  "dependencies": {
+    "bluebird": "^3.0.5",
+    "bluebird-inquirer": "0.0.1",
+    "chalk": "^1.1.1",
+    "fs-extra": "^0.26.2",
+    "git-config": "0.0.7",
+    "nomnom": "^1.8.1",
+    "rc": "^1.1.5",
+    "semver": "^5.1.0",
+    "update-notifier": "^0.5.0"
+  },
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "get-folder-size": "^0.1.1",
+    "mocha": "^2.2.5",
+    "sinon": "^1.15.4",
+    "sinon-chai": "^2.8.0"
+  },
+  "license": "MIT"
+}
