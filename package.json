@@ -1,7 +1,7 @@
 {
   "name": "ump",
   "title": "ump",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Bump without the B",
   "scripts": {
     "test": "npm run test:clean && npm run test:pre && npm run test:run",
@@ -35,7 +35,6 @@
   },
   "devDependencies": {
     "chai": "^3.2.0",
-    "get-folder-size": "^0.1.1",
     "mocha": "^2.2.5",
     "sinon": "^1.15.4",
     "sinon-chai": "^2.8.0"

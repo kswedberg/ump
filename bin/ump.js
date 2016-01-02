@@ -9,16 +9,12 @@ var options = {
   releaseType: {
     position: 0,
     // choices: config.releaseTypes,
-    help: 'The semver-compatible release type. One of: ' + utils.releaseTypes.join(', ') + '. *OR* a valid version'
+    help: '(Required) semver-compatible release type. One of: ' + utils.releaseTypes.join(', ') + '. *OR* a valid version'
     // required: true
-  },
-  sourceFile: {
-    abbr: 's',
-    help: 'File containing the "canonical" version. All files will be bumped relative to it. Default: package.json'
   },
   files: {
     abbr: 'f',
-    help: 'List of JSON files that, along with the source file, will be bumped.',
+    help: 'Optional space-separated list of JSON files that to be bumped (relative to version in 1st listed). Default: package.json',
     list: true,
     position: 1
   },
@@ -45,11 +41,11 @@ var options = {
 
 var opts = parser.script('ump')
 .options(options).parse();
+opts.inquire = true;
+
+ump(opts);
 
 if (!opts.releaseType) {
   parser.script('ump')
   .options(options).parse(['-h']);
-} else {
-  opts.inquire = true;
-  ump(opts);
 }

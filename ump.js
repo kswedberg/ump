@@ -19,7 +19,8 @@ var runCommands = function runCommands(sequence) {
   })
   .then(function() {
     utils.log('*** DONE! ***', 'green');
-  });
+  })
+  .catch(utils.resetVersion);
 };
 
 var ump = function(options) {
@@ -58,20 +59,16 @@ var ump = function(options) {
   utils.bumpLog(files, version, newVersion);
 
   if (opts.debug) {
-    var debugOutput = JSON.stringify({files: files, version: version, newVersion: newVersion, opts: opts}, null, 2);
-
-    return fs.writeFileAsync('bumpdebug.json', debugOutput)
-    .then(function() {
-      utils.log('\n**DEBUG ONLY! Writing the following to bumpdebug.json:**', 'cyan');
-      console.log(debugOutput);
-    });
+    return utils.debug({files: files, version: version, newVersion: newVersion, opts: opts});
   }
 
+  opts.version = version;
+  opts.files = files;
   sequence.push(commands.updateVersion(files, newVersion));
 
   if (opts.release) {
     // gitPull needs to happen first, so we don't update files when we can't complete things
-    sequence.unshift(commands.gitPull());
+    sequence.unshift(commands.gitPull(opts));
     sequence.push(commands.gitRelease(files, newVersion, opts));
   }
 
