@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git@github.com:kswedberg/ump.git"
   },
-  "main": "lib/ump.js",
+  "main": "ump.js",
   "bin": {
     "ump": "bin/ump.js"
   },
