@@ -3,92 +3,65 @@
 var path = require('path');
 var Promises = require('bluebird');
 var fs = Promises.promisifyAll(require('fs-extra'));
-var inquirer = require('bluebird-inquirer');
+var inquirer = require('inquirer');
 var semver = require('semver');
 
 var utils = require('./lib/utils');
 var commands = require('./lib/commands');
+var log = require('./lib/log');
+var config = require('./lib/config');
 var sequence = [];
 
 var runCommands = function runCommands(sequence) {
-  return new Promises(function(resolve) {
-    resolve(sequence);
-  })
-  .each(function(command) {
-    return command.cmd();
-  })
+  return utils.checkNodeNpm()
   .then(function() {
-    utils.log('*** DONE! ***', 'green');
+    return Promises.each(sequence, function(command) {
+      return command.cmd();
+    })
+    .then(function() {
+      log.color('*** DONE! ***', 'green');
+    })
+    .catch(utils.resetVersion);
   })
-  .catch(utils.resetVersion);
+  .catch((err) => {
+    console.error(err);
+  });
 };
 
 var ump = function(options) {
-  var version, newVersion, bumpError;
-  var rcOptions = utils.getRc('ump');
-  var opts = utils.extend(utils.defaults, rcOptions, options);
-  var files = utils.getFiles(opts);
-  var sourceFile = files[0];
-  var releaseType = opts.releaseType;
+  var opts = utils.buildOptions(options);
 
-  // opts.publish always implies opts.release as well (git push && git push --tags)
-  if (opts.publish) {
-    opts.release = true;
-  }
-
-  try {
-    version = require(path.resolve('./', sourceFile)).version;
-    bumpError = utils.bumpError(sourceFile, releaseType, version);
-  } catch (err) {
-    // If we fail to get a version from the designated sourceFile
-    bumpError = utils.bumpError(false, releaseType, sourceFile);
-  }
-
-  if (bumpError) {
+  if (opts.error) {
     return;
+  } else if (opts.debug) {
+    return utils.debug(opts);
   }
 
-  // semver release type
-  if (utils.releaseTypes.indexOf(releaseType) !== -1) {
-    newVersion = semver.inc(version, releaseType);
-  } else {
-    // but, also allow for hardcoded number release
-    newVersion = releaseType;
-  }
+  log.bump(opts);
 
-  utils.bumpLog(files, version, newVersion);
-
-  if (opts.debug) {
-    return utils.debug({files: files, version: version, newVersion: newVersion, opts: opts});
-  }
-
-  opts.version = version;
-  opts.files = files;
-  sequence.push(commands.updateVersion(files, newVersion));
+  sequence.push(commands.updateVersion(opts));
 
   if (opts.release) {
     // gitPull needs to happen first, so we don't update files when we can't complete things
     sequence.unshift(commands.gitPull(opts));
-    sequence.push(commands.gitRelease(files, newVersion, opts));
+    sequence.push(commands.gitRelease(opts));
   }
 
-  console.log('\nAbout to execute the following:');
-  sequence.forEach(function(item) {
-    utils.log(item.log, 'cyan');
-  });
+  log.tasks(sequence);
 
+  // opts.inquire is set to true automatically for CLI usage
   if (opts.inquire) {
-    return inquirer.prompt(utils.confirm)
+    return inquirer.prompt(config.confirm)
     .then(function(answer) {
       if (!answer.run) {
-        utils.log('\nHalted execution. Not bumping files.', 'red');
+        log.color('\nHalted execution. Not bumping files.', 'red');
       } else {
         runCommands(sequence);
       }
     });
+  } else {
+    runCommands(sequence);
   }
-
-  runCommands(sequence);
 };
 
 module.exports = ump;
