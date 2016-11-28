@@ -6,8 +6,8 @@
   "scripts": {
     "test": "npm run test:clean && npm run test:pre && npm run test:run",
     "test:clean": "rm -rf ./test/testarea",
-    "test:pre": "mkdir \"./test/testarea\"",
-    "test:run": "mocha --reporter spec"
+    "test:pre": "mkdir -p \"./test/testarea\"",
+    "test:run": "node_modules/.bin/mocha --delay --reporter spec"
   },
   "repository": {
     "type": "git",
