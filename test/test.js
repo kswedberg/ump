@@ -1,3 +1,4 @@
+/* global run:false */
 var Promises = require('bluebird');
 var fs = Promises.promisifyAll(require('fs-extra'));
 const path = require('path');
