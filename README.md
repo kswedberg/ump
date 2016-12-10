@@ -10,7 +10,7 @@ For programmatic use (in a node.js script), install locally:
 
 `npm install ump`
 
-### Usage
+## Usage
 
 `ump releaseType [files]... [options]`
 
@@ -24,7 +24,7 @@ For programmatic use (in a node.js script), install locally:
     * `-d`, `--debug`:        If set, ump will run in debug mode, outputting a json file instead of doing something
     * `-h`, `--help`:         Shows help information on the command line
 
-#### .umprc
+### .umprc
 
 In addition to command-line options, you may use a `.umprc` file in your project's root. The format of this file may be valid JSON or INI.
 
@@ -43,3 +43,11 @@ Example .umprc using INI format:
 message="Release v%s."
 publish=true
 ```
+
+## Contributing
+
+Thank you! Please consider the following when working on this repo before you submit a pull request:
+
+* Style conventions are noted in the default rulesets of [eslint-config-kswedberg](https://github.com/kswedberg/eslint-config-kswedberg).
+* To be sure your additions are lint-free and don't introduce any errors, **run `npm test` from the command line**.
+* If possible, please use Tim Pope's [git commit message style](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html). Multiple commits in a pull request will be squashed into a single commit. I may adjust the message for clarity, style, or grammar. I manually commit all merged PRs using the `--author` flag to ensure that proper authorship (yours) is maintained.
