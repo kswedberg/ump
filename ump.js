@@ -41,6 +41,10 @@ var ump = function(options) {
 
   sequence.push(commands.updateVersion(opts));
 
+  if (opts.extras) {
+    sequence.push(commands.extras(opts));
+  }
+
   if (opts.release) {
     // gitPull needs to happen first, so we don't update files when we can't complete things
     sequence.unshift(commands.gitPull(opts));
