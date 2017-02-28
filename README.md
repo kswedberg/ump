@@ -6,11 +6,11 @@ For command-line use, install globally:
 
 `npm install -g ump`
 
-For programmatic use (in a node.js script), install locally:
+For programmatic use (i.e. requiring it as a module in a node.js script), install locally:
 
 `npm install ump`
 
-## Usage
+## Command-line Usage
 
 `ump releaseType [files]... [options]`
 
@@ -24,13 +24,30 @@ For programmatic use (in a node.js script), install locally:
     * `-d`, `--debug`:        If set, ump will run in debug mode, outputting a json file instead of doing something
     * `-h`, `--help`:         Shows help information on the command line
 
-### .umprc
+## Module Usage
+
+The only required option is `files`, which takes an array of files. All other options are the same as the command-line long-hand options: `message, release, publish, debug` (not `help`).
+
+```js
+const ump = require('ump');
+
+ump({
+  files: [
+    'package.json',
+    'bowersomething.json'
+  ],
+  release: true
+});
+
+```
+
+## .umprc
 
 In addition to command-line options, you may use a `.umprc` file in your project's root. The format of this file may be valid JSON or INI.
 
 Example .umprc using JSON format:
 
-```
+```json
 {
   "message": "Release v%s.",
   "publish": true
@@ -39,10 +56,50 @@ Example .umprc using JSON format:
 
 Example .umprc using INI format:
 
-```
+```ini
 message="Release v%s."
 publish=true
 ```
+
+## Extra files
+
+If you want to update a version in a file that is not in JSON format, you can do so by adding the `extras` property to the `.umprc` file (or to the options object if using ump as a module).
+
+The value of the `extras` property is an array of strings (representing file paths) or objects with the following properties:
+
+* `prefix`: string value representing a regular expression to match text preceding the actual version within the file. Default: `'(?:\\-\\sv|version[\'"]?\\:\\s*[\'"])'`
+* `replaced`: string value representing a regular expression to match the version number (immediately following the `prefix` text) that you want to be replaced. Ideally, should match a valid semver version. Default: '(?:[0-9]+\\.){2}[0-9]+[0-9a-zA-Z\\-_\\+\\.]*'
+* `flags`: string value representing one or more regular expression flags. Default: `'g'`
+
+
+### Example .umprc:
+
+```json
+{
+  "extras": [
+    "foo/bar/baz.js",
+    {
+      "file": "/biz/shizz.js"
+    },
+    {
+      "file": "docs/mydocblock.js",
+      "prefix": "@version\\s+",
+      "flags": ""
+    }
+  ]
+}
+```
+
+In the example, the first two files use the default options. If we were performing a minor bump (and assuming the version in `package.json` matches that in the files):
+* `// myfile - v1.3.2` would become `// myfile - v1.4.0`
+* `{'version': '3.2.1-pre'}` would become `{'version': '3.3.0'}`
+
+The last file ("docs/mydocblock.js") would change the first match only because the `"g"` flag is removed. Therefore, `// * @version 1.2.1` at the top of the file would become `// * @version 1.3.0` but any subsequent `// @version x.x.x` in the file would be ignored.
+
+### Notes:
+
+* Because `ump` uses `new Regexp()` to build the regular expression, rather than regular expression literal syntax, you must "double escape" the `prefix` and `replaced` options.
+* You will rarely, if ever, need to change the `replaced` value.
 
 ## Contributing
 
