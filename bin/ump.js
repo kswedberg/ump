@@ -14,6 +14,8 @@ opts.inquire = true;
 ump(opts);
 
 if (!opts.releaseType) {
-  parser.script('ump')
-  .options(options).parse(['-h']);
+  parser
+  .script('ump')
+  .options(options)
+  .parse(['-h']);
 }
