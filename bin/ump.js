@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
 require('../lib/notifier');
-var parser = require('nomnom');
-var ump = require('../ump');
+const parser = require('nomnom');
+const ump = require('../ump');
 
-var options = require('../lib/config').cliOptions;
+const options = require('../lib/config').cliOptions;
 
-var opts = parser.script('ump')
+const opts = parser.script('ump')
 .options(options).parse();
 
 opts.inquire = true;

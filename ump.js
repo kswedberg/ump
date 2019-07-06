@@ -1,24 +1,24 @@
 'use strict';
 
-var path = require('path');
-var Promises = require('bluebird');
-var fs = Promises.promisifyAll(require('fs-extra'));
-var inquirer = require('inquirer');
-var semver = require('semver');
+const path = require('path');
+const Promises = require('bluebird');
+const fs = Promises.promisifyAll(require('fs-extra'));
+const inquirer = require('inquirer');
+const semver = require('semver');
 
-var utils = require('./lib/utils');
-var commands = require('./lib/commands');
-var log = require('./lib/log');
-var config = require('./lib/config');
-var sequence = [];
+const utils = require('./lib/utils');
+const commands = require('./lib/commands');
+const log = require('./lib/log');
+const config = require('./lib/config');
+const sequence = [];
 
-var runCommands = function runCommands(sequence) {
+const runCommands = function runCommands(sequence) {
   return utils.checkNodeNpm()
-  .then(function() {
-    return Promises.each(sequence, function(command) {
+  .then(() => {
+    return Promises.each(sequence, (command) => {
       return command.cmd();
     })
-    .then(function() {
+    .then(() => {
       log.color('*** DONE! ***', 'green');
     })
     .catch(utils.resetVersion);
@@ -28,8 +28,8 @@ var runCommands = function runCommands(sequence) {
   });
 };
 
-var ump = function(options) {
-  var opts = utils.buildOptions(options);
+const ump = function(options) {
+  const opts = utils.buildOptions(options);
 
   if (opts.error) {
     return;
@@ -46,6 +46,7 @@ var ump = function(options) {
   }
 
   if (opts.release) {
+    // opts.dirty = commands.commitDirty(opts);
     // gitPull needs to happen first, so we don't update files when we can't complete things
     sequence.unshift(commands.gitPull(opts));
     sequence.push(commands.gitRelease(opts));
@@ -56,16 +57,15 @@ var ump = function(options) {
   // opts.inquire is set to true automatically for CLI usage
   if (opts.inquire) {
     return inquirer.prompt(config.confirm)
-    .then(function(answer) {
+    .then((answer) => {
       if (!answer.run) {
         log.color('\nHalted execution. Not bumping files.', 'red');
       } else {
         runCommands(sequence);
       }
     });
-  } else {
-    runCommands(sequence);
   }
+  runCommands(sequence);
 };
 
 module.exports = ump;
