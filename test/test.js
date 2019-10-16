@@ -1,4 +1,3 @@
-/* global run:false */
 const Promises = require('bluebird');
 const fs = Promises.promisifyAll(require('fs-extra'));
 const path = require('path');
@@ -14,9 +13,9 @@ const settings = {
     'test/testarea/f1.js',
     {
       file: 'test/testarea/f2.js',
-      prefix: '@version\\s*'
+      prefix: '@version\\s*',
     },
-  ]
+  ],
 };
 
 const pkg = {
@@ -74,14 +73,14 @@ const tests = {
         expect(/@version 1\.0\.1/.test(content)).to.equal(true);
       });
     });
-  }
+  },
 };
 
 
 const files = [
   {
     file: 'package.json',
-    content: JSON.stringify(pkg)
+    content: JSON.stringify(pkg),
   },
   {
     file: 'f1.js',
@@ -93,7 +92,7 @@ const files = [
       let f1 = function() {
 
       };
-    `
+    `,
   },
   {
     file: 'f2.js',
@@ -108,8 +107,8 @@ const files = [
       let f2 = function() {
 
       };
-    `
-  }
+    `,
+  },
 ];
 
 Promises.each(files, (file) => {
