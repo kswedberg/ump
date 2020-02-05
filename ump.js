@@ -33,8 +33,8 @@ const ump = function(options) {
 
   if (opts.error) {
     return;
-  } else if (opts.debug) {
-    return utils.debug(opts);
+  // } else if (opts.debug) {
+  //   return utils.debug(opts);
   }
 
   log.bump(opts);
