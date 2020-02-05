@@ -23,6 +23,9 @@
     "email": "kswedberg@gmail.com",
     "url": "https://karlswedberg.com/"
   },
+  "engines": {
+    "node": ">= 8.6.0"
+  },
   "dependencies": {
     "bluebird": "^3.7.1",
     "chalk": "^2.4.2",
@@ -33,7 +36,7 @@
     "nomnom": "^1.8.1",
     "rc": "^1.2.8",
     "semver": "^6.3.0",
-    "update-notifier": "^2.5.0"
+    "update-notifier": "^4.0.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
