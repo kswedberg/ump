@@ -28,7 +28,7 @@ const runCommands =  function(sequence, options) {
   });
 };
 
-const ump = function(options) {
+const ump = async function(options) {
   const opts = utils.buildOptions(options);
 
   if (opts.error) {
