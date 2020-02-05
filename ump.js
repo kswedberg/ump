@@ -45,6 +45,11 @@ const ump = async function(options) {
     sequence.push(commands.extras(opts));
   }
 
+  // opts.inquire is set to true automatically for CLI usage
+  if (opts.publish && opts.inquire) {
+    opts.publishFlags = await inquirer.prompt(config.publishPrompts);
+  }
+
   if (opts.release) {
     // opts.dirty = commands.commitDirty(opts);
     // gitPull needs to happen first, so we don't update files when we can't complete things
@@ -56,14 +61,13 @@ const ump = async function(options) {
 
   // opts.inquire is set to true automatically for CLI usage
   if (opts.inquire) {
-    return inquirer.prompt(config.confirm)
-    .then((answer) => {
-      if (!answer.run) {
-        log.color('\nHalted execution. Not bumping files.', 'red');
-      } else {
-        runCommands(sequence);
-      }
-    });
+    const answer = await inquirer.prompt(config.confirm);
+
+    if (!answer.run) {
+      console.log(sequence);
+
+      return log.color('\nHalted execution. Not bumping files.', 'red');
+    }
   }
 
   runCommands(sequence, opts);
