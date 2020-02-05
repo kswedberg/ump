@@ -12,11 +12,11 @@ const log = require('./lib/log');
 const config = require('./lib/config');
 const sequence = [];
 
-const runCommands = function runCommands(sequence) {
+const runCommands =  function(sequence, options) {
   return utils.checkNodeNpm()
   .then(() => {
     return Promises.each(sequence, (command) => {
-      return command.cmd();
+      return command.cmd(options);
     })
     .then(() => {
       log.color('*** DONE! ***', 'green');
@@ -65,7 +65,8 @@ const ump = function(options) {
       }
     });
   }
-  runCommands(sequence);
+
+  runCommands(sequence, opts);
 };
 
 module.exports = ump;
