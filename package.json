@@ -8,7 +8,9 @@
     "test:clean": "rm -rf ./test/testarea",
     "test:pre": "npm run lint && mkdir -p \"./test/testarea\"",
     "test:run": "node_modules/.bin/mocha --delay --reporter spec",
-    "lint": "eslint --config .eslintrc.js ump.js bin lib test"
+    "lint": "eslint --config .eslintrc.js ump.js bin lib test",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -36,7 +38,8 @@
     "nomnom": "^1.8.1",
     "rc": "^1.2.8",
     "semver": "^6.3.0",
-    "update-notifier": "^4.0.0"
+    "update-notifier": "^4.0.0",
+    "snyk": "^1.319.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
@@ -44,5 +47,6 @@
     "eslint-config-kswedberg": "^3.1.1",
     "mocha": "^7.1.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "snyk": true
 }
