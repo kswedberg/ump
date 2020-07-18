@@ -34,11 +34,11 @@
     "fs-extra": "^1.0.0",
     "git-config": "0.0.7",
     "glob": "^7.1.4",
-    "inquirer": "^7.0.0",
+    "inquirer": "^7.3.2",
     "nomnom": "^1.8.1",
     "rc": "^1.2.8",
     "semver": "^6.3.0",
-    "snyk": "^1.332.0",
+    "snyk": "^1.362.1",
     "update-notifier": "^4.0.0"
   },
   "devDependencies": {
