@@ -38,7 +38,7 @@
     "nomnom": "^1.8.1",
     "rc": "^1.2.8",
     "semver": "^6.3.0",
-    "snyk": "^1.425.4",
+    "snyk": "^1.667.0",
     "update-notifier": "^4.0.0"
   },
   "devDependencies": {
