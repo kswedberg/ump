@@ -18,11 +18,11 @@ For programmatic use (i.e. requiring it as a module in a node.js script), instal
 * **`files`**: Default: package.json — Optional space-separated list of .json files that will be bumped. The first one is assumed to contain the "canonical" version by which all will be bumped.
 
 * **Options**
-    * `-m`, `--message`:      Message to be used for the commit and tag when `-r` or `-p` is set. Default: Release %s
-    * `-r`, `--release`:      If set, runs `git add` and `git commit` for the bumped files and pushes a tagged release.
-    * `-p`, `--publish`:      If set, automatically runs with the `--release` flag and then publishes the release to npm.
-    * `-d`, `--debug`:        If set, ump will run in debug mode, outputting a json file instead of doing something
-    * `-h`, `--help`:         Shows help information on the command line
+  * `-m`, `--message`:      Message to be used for the commit and tag when `-r` or `-p` is set. Default: Release %s
+  * `-r`, `--release`:      If set, runs `git add` and `git commit` for the bumped files and pushes a tagged release.
+  * `-p`, `--publish`:      If set, automatically runs with the `--release` flag and then publishes the release to npm.
+  * `-d`, `--debug`:        If set, ump will run in debug mode, outputting a json file instead of doing something
+  * `-h`, `--help`:         Shows help information on the command line
 
 ## Module Usage
 
@@ -91,6 +91,7 @@ The value of the `extras` property is an array of strings (representing file pat
 ```
 
 In the example, the first two files use the default options. If we were performing a minor bump (and assuming the version in `package.json` matches that in the files):
+
 * `// myfile - v1.3.2` would become `// myfile - v1.4.0`
 * `{'version': '3.2.1-pre'}` would become `{'version': '3.3.0'}`
 
