@@ -30,8 +30,8 @@
   },
   "dependencies": {
     "bluebird": "^3.7.1",
-    "chalk": "^2.4.2",
-    "fs-extra": "^1.0.0",
+    "chalk": "^4.1.2",
+    "fs-extra": "^10.0.0",
     "git-config": "0.0.7",
     "glob": "^7.1.4",
     "inquirer": "^7.3.2",

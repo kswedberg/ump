@@ -1,5 +1,5 @@
 const Promises = require('bluebird');
-const fs = Promises.promisifyAll(require('fs-extra'));
+const fs = require('fs-extra');
 const path = require('path');
 const ump = require('../ump');
 const expect = require('chai').expect;
@@ -61,13 +61,13 @@ const tests = {
     it('should update extra files to correct version', () => {
       return extras.cmd()
       .then(() => {
-        return fs.readFileAsync('test/testarea/f1.js', 'utf8');
+        return fs.readFile('test/testarea/f1.js', 'utf8');
       })
       .then((content) => {
         expect(/v1\.0\.1/.test(content)).to.equal(true);
       })
       .then(() => {
-        return fs.readFileAsync('test/testarea/f2.js', 'utf8');
+        return fs.readFile('test/testarea/f2.js', 'utf8');
       })
       .then((content) => {
         expect(/@version 1\.0\.1/.test(content)).to.equal(true);
@@ -112,7 +112,7 @@ const files = [
 ];
 
 Promises.each(files, (file) => {
-  return fs.writeFileAsync(path.join(__dirname, 'testarea/', file.file), file.content);
+  return fs.writeFile(path.join(__dirname, 'testarea/', file.file), file.content);
 })
 .then(() => {
   describe('ump', () => {

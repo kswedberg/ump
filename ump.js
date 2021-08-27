@@ -2,7 +2,6 @@
 
 const path = require('path');
 const Promises = require('bluebird');
-const fs = Promises.promisifyAll(require('fs-extra'));
 const inquirer = require('inquirer');
 const semver = require('semver');
 
@@ -20,11 +19,11 @@ const runCommands =  function(sequence, options) {
     })
     .then(() => {
       log.color('*** DONE! ***', 'green');
-    })
-    .catch(utils.resetVersion);
+    });
   })
   .catch((err) => {
     console.error(err);
+    utils.resetVersion(options);
   });
 };
 
@@ -33,8 +32,6 @@ const ump = async function(options) {
 
   if (opts.error) {
     return;
-  // } else if (opts.debug) {
-  //   return utils.debug(opts);
   }
 
   log.bump(opts);
