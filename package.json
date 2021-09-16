@@ -37,9 +37,9 @@
     "inquirer": "^7.3.2",
     "rc": "^1.2.8",
     "semver": "^6.3.0",
-    "snyk": "^1.675.0",
+    "snyk": "^1.685.0",
     "update-notifier": "^4.0.0",
-    "yargs": "^13.3.2"
+    "yargs": "^15.0.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
