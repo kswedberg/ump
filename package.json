@@ -8,7 +8,7 @@
     "test:clean": "rm -rf ./test/testarea",
     "test:pre": "npm run lint && mkdir -p \"./test/testarea\"",
     "test:run": "node_modules/.bin/mocha --delay --reporter spec",
-    "lint": "eslint --config .eslintrc.js ump.js bin lib test",
+    "lint": "eslint --config .eslintrc.cjs *.js bin lib test",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
   },
