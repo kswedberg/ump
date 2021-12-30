@@ -29,7 +29,7 @@ For programmatic use (i.e. requiring it as a module in a node.js script), instal
 The only required option is `files`, which takes an array of files. All other options are the same as the command-line long-hand options: `message, release, publish, debug` (not `help`).
 
 ```js
-const ump = require('ump');
+import ump from 'ump';
 
 ump({
   files: [
