@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import('../lib/notifier.js');
-import yarg from 'yargs/yargs.js';
+import yarg from 'yargs';
 import ump from '../ump.js';
 import {config} from '../lib/config.js';
 
