@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-require('../lib/notifier');
-// const parser = require('nomnom');
-const ump = require('../ump');
+import('../lib/notifier.js');
+import yarg from 'yargs/yargs.js';
+import ump from '../ump.js';
+import {config} from '../lib/config.js';
 
-const yargs = require('yargs/yargs')(process.argv.slice(2));
-const options = require('../lib/config').cliOptions;
-
+const options = config.cliOptions;
+const yargs = yarg(process.argv.slice(2));
 const argv = yargs
 .usage('Usage: $0 <releaseType> [files]... [options]')
 .usage(`

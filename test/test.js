@@ -1,8 +1,14 @@
-const Promises = require('bluebird');
-const fs = require('fs-extra');
-const path = require('path');
-const ump = require('../ump');
-const expect = require('chai').expect;
+import path from 'path';
+import Promises from 'bluebird';
+import fs from 'fs-extra';
+import ump from '../ump.js';
+import {utils} from '../lib/utils.js';
+import {commands} from '../lib/commands.js';
+
+import {expect} from 'chai';
+
+// @ts-ignore
+const dirname = utils.getDirName(import.meta.url);
 
 const settings = {
   inquire: false,
@@ -24,13 +30,10 @@ const pkg = {
   version: '1.0.0',
 };
 
-const utils = require('../lib/utils');
+let opts = {};
 
 const tests = {
-  utils: function() {
-
-    const opts = utils.buildOptions(settings);
-
+  utils() {
     it('should build options object', () => {
       expect(opts.sourceFile).to.equal(settings.files[0]);
       expect(opts.newVersion).to.equal('1.0.1');
@@ -49,9 +52,8 @@ const tests = {
       expect(opts.extraFiles.length).to.equal(2);
     });
   },
-  commands: function() {
-    const opts = utils.buildOptions(settings);
-    const commands = require('../lib/commands');
+
+  commands() {
     const extras = commands.extras(opts);
 
     it('should have correct log info', () => {
@@ -75,7 +77,6 @@ const tests = {
     });
   },
 };
-
 
 const files = [
   {
@@ -111,16 +112,22 @@ const files = [
   },
 ];
 
-Promises.each(files, (file) => {
-  return fs.writeFile(path.join(__dirname, 'testarea/', file.file), file.content);
-})
-.then(() => {
-  describe('ump', () => {
-    Object.keys(tests).forEach((test) => {
-      describe(test, tests[test]);
+const runTests = async() => {
+  try {
+    await Promises.each(files, (file) => {
+      return fs.writeFile(path.join(dirname, 'testarea/', file.file), file.content);
     });
-  });
 
+    opts = await utils.buildOptions(settings);
+    describe('ump', () => {
+      Object.entries(tests).forEach(([name, test]) => {
+        describe(name, test);
+      });
+    });
+  } catch (err) {
+    console.error(err);
+  }
   run();
-})
-.catch(run);
+};
+
+runTests();

@@ -1,25 +1,21 @@
 'use strict';
 
-const path = require('path');
-const Promises = require('bluebird');
-const inquirer = require('inquirer');
-const semver = require('semver');
+import Promises from 'bluebird';
+import inquirer from 'inquirer';
 
-const utils = require('./lib/utils');
-const commands = require('./lib/commands');
-const log = require('./lib/log');
-const config = require('./lib/config');
+import {utils} from './lib/utils.js';
+import {commands} from './lib/commands.js';
+import {log} from './lib/log.js';
+import {config} from './lib/config.js';
+
 const sequence = [];
 
 const runCommands =  function(sequence, options) {
-  return utils.checkNodeNpm()
+  return Promises.each(sequence, (command) => {
+    return command.cmd(options);
+  })
   .then(() => {
-    return Promises.each(sequence, (command) => {
-      return command.cmd(options);
-    })
-    .then(() => {
-      log.color('*** DONE! ***', 'green');
-    });
+    log.color('*** DONE! ***', 'green');
   })
   .catch((err) => {
     console.error(err);
@@ -28,7 +24,7 @@ const runCommands =  function(sequence, options) {
 };
 
 const ump = async function(options) {
-  const opts = utils.buildOptions(options);
+  const opts = await utils.buildOptions(options);
 
   if (opts.error) {
     return;
@@ -70,4 +66,4 @@ const ump = async function(options) {
   runCommands(sequence, opts);
 };
 
-module.exports = ump;
+export default ump;
