@@ -30,7 +30,6 @@
     "node": ">=14"
   },
   "dependencies": {
-    "bluebird": "^3.7.2",
     "chalk": "^5.1.2",
     "fs-extra": "^10.1.0",
     "git-config": "^0.0.7",
@@ -42,6 +41,7 @@
     "yargs": "^17.6.2"
   },
   "devDependencies": {
+    "@types/mocha": "^10.0.0",
     "chai": "^4.3.7",
     "eslint": "^8.27.0",
     "eslint-config-kswedberg": "^5.1.2",

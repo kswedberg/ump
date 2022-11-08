@@ -1,26 +1,25 @@
 'use strict';
 
-import Promises from 'bluebird';
 import inquirer from 'inquirer';
 
-import {utils} from './lib/utils.js';
+import {utils, peach} from './lib/utils.js';
 import {commands} from './lib/commands.js';
 import {log} from './lib/log.js';
 import {config} from './lib/config.js';
 
 const sequence = [];
 
-const runCommands =  function(sequence, options) {
-  return Promises.each(sequence, (command) => {
-    return command.cmd(options);
-  })
-  .then(() => {
+const runCommands =  async function(sequence, options) {
+  try {
+    await peach(sequence, (command) => {
+      return command.cmd(options);
+    });
+
     log.color('*** DONE! ***', 'green');
-  })
-  .catch((err) => {
+  } catch (err) {
     console.error(err);
     utils.resetVersion(options);
-  });
+  }
 };
 
 const ump = async function(options) {

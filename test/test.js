@@ -1,8 +1,8 @@
 import path from 'path';
-import Promises from 'bluebird';
+
 import fs from 'fs-extra';
 import ump from '../ump.js';
-import {utils} from '../lib/utils.js';
+import {utils, peach} from '../lib/utils.js';
 import {commands} from '../lib/commands.js';
 
 import {expect} from 'chai';
@@ -114,7 +114,7 @@ const files = [
 
 const runTests = async() => {
   try {
-    await Promises.each(files, (file) => {
+    await peach(files, (file) => {
       return fs.writeFile(path.join(dirname, 'testarea/', file.file), file.content);
     });
 
