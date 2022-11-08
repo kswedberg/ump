@@ -31,23 +31,21 @@
   },
   "dependencies": {
     "bluebird": "^3.7.2",
-    "chalk": "^5.0.0",
-    "fs-extra": "^10.0.0",
+    "chalk": "^5.1.2",
+    "fs-extra": "^10.1.0",
     "git-config": "^0.0.7",
-    "glob": "^7.2.0",
-    "inquirer": "^8.2.0",
+    "glob": "^8.0.3",
+    "inquirer": "^9.1.4",
     "rc": "^1.2.8",
-    "semver": "^7.3.5",
-    "snyk": "^1.812.0",
+    "semver": "^7.3.8",
     "update-notifier": "^6.0.2",
-    "yargs": "^17.3.1"
+    "yargs": "^17.6.2"
   },
   "devDependencies": {
-    "chai": "^4.3.4",
-    "eslint": "^8.5.0",
-    "eslint-config-kswedberg": "^5.1.1",
+    "chai": "^4.3.7",
+    "eslint": "^8.27.0",
+    "eslint-config-kswedberg": "^5.1.2",
     "mocha": "^9.1.3"
   },
-  "license": "MIT",
-  "snyk": true
+  "license": "MIT"
 }
