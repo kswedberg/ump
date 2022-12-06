@@ -21,12 +21,14 @@ For programmatic use (i.e. requiring it as a module in a node.js script), instal
   * `-m`, `--message`:      Message to be used for the commit and tag when `-r` or `-p` is set. Default: Release %s
   * `-r`, `--release`:      If set, runs `git add` and `git commit` for the bumped files and pushes a tagged release.
   * `-p`, `--publish`:      If set, automatically runs with the `--release` flag and then publishes the release to npm.
+  * `-a`, `--autostash`:    Default: `true`. Whether to use the `--autostash` flag when running `git pull`
+  * `-x`, `--skip-pull`:    If set, skips executing the initial git pull command during a release/publish task. USE WITH CAUTION.
   * `-d`, `--debug`:        If set, ump will run in debug mode, outputting a json file instead of doing something
   * `-h`, `--help`:         Shows help information on the command line
 
 ## Module Usage
 
-The only required option is `files`, which takes an array of files. All other options are the same as the command-line long-hand options: `message, release, publish, debug` (not `help`).
+The only required option is `files`, which takes an array of files. All other options are the same as the command-line *long-hand* options — `message, release, publish, debug` (not `help`). Note: the `skip-pull` option can be written as either kebab case (`skip-pull`) or camel case (`skipPull`).
 
 ```js
 import ump from 'ump';
