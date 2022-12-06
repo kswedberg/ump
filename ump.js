@@ -44,7 +44,9 @@ const ump = async function(options) {
 
   if (opts.release) {
     // opts.dirty = commands.commitDirty(opts);
+
     // gitPull needs to happen first, so we don't update files when we can't complete things
+    // The skipPull option is available if we are SURE we don't need to pull
     sequence.unshift(commands.gitPull(opts));
     sequence.push(commands.gitRelease(opts));
   }
