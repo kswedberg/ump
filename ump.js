@@ -1,6 +1,7 @@
 'use strict';
 
-import inquirer from 'inquirer';
+import select from '@inquirer/select';
+import confirm from '@inquirer/confirm';
 
 import {utils, peach} from './lib/utils.js';
 import {commands} from './lib/commands.js';
@@ -37,9 +38,11 @@ const ump = async function(options) {
     sequence.push(commands.extras(opts));
   }
 
+
   // opts.inquire is set to true automatically for CLI usage
-  if (opts.publish && opts.inquire) {
-    opts.publishFlags = await inquirer.prompt(config.publishPrompts);
+  if (opts.publish && opts.inquire && config.pkgName.startsWith('@')) {
+    opts.publishFlags = {};
+    opts.publishFlags[config.publishPrompt.name] = await select(config.publishPrompt);
   }
 
   if (opts.release) {
@@ -55,9 +58,9 @@ const ump = async function(options) {
 
   // opts.inquire is set to true automatically for CLI usage
   if (opts.inquire) {
-    const answer = await inquirer.prompt(config.confirm);
+    const run = await confirm(config.confirmPrompt);
 
-    if (!answer.run) {
+    if (!run) {
       console.log(sequence);
 
       return log.color('\nHalted execution. Not bumping files.', 'red');
