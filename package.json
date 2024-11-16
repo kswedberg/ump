@@ -28,8 +28,8 @@
     "node": ">=14"
   },
   "dependencies": {
-    "@inquirer/confirm": "^5.0.0",
-    "@inquirer/select": "^4.0.0",
+    "@inquirer/confirm": "^5.0.2",
+    "@inquirer/select": "^4.0.2",
     "chalk": "^5.3.0",
     "fs-extra": "^11.2.0",
     "git-config": "^0.0.7",
@@ -41,10 +41,10 @@
   },
   "devDependencies": {
     "@types/mocha": "^10.0.9",
-    "chai": "^5.1.1",
-    "eslint": "^9.13.0",
+    "chai": "^5.1.2",
+    "eslint": "^9.15.0",
     "eslint-config-kswedberg": "^7.1.0",
-    "mocha": "^10.7.3"
+    "mocha": "^10.8.2"
   },
   "license": "MIT"
 }
