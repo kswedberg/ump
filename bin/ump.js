@@ -21,7 +21,7 @@ const argv = yargs
 .help('h')
 .alias('h', 'help')
 .options(options)
-.argv;
+.parse();
 
 // @ts-ignore
 const {_: positional, ...opts} = argv;
