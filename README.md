@@ -21,6 +21,7 @@ For programmatic use (i.e. requiring it as a module in a node.js script), instal
   * `-m`, `--message`:      Message to be used for the commit and tag when `-r` or `-p` is set. Default: Release %s
   * `-r`, `--release`:      If set, runs `git add` and `git commit` for the bumped files and pushes a tagged release.
   * `-p`, `--publish`:      If set, automatically runs with the `--release` flag and then publishes the release to npm.
+  * `-o`, `--otp`:          One-time password for 2FA authentication when publishing to npm.
   * `-a`, `--autostash`:    Default: `true`. Whether to use the `--autostash` flag when running `git pull`
   * `-x`, `--skip-pull`:    If set, skips executing the initial git pull command during a release/publish task. USE WITH CAUTION.
   * `-t`, `--tag-prefix`:   Optional prefix for the version in git tag. (e.g. With `--message "Release %s" --tag-prefix version`, The tag might look like "version 1.2.3" and its commit message "Release version 1.2.3")

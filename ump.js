@@ -39,9 +39,14 @@ const ump = async function(options) {
   }
 
 
+  opts.publishFlags = {};
+
+  if (opts.otp) {
+    opts.publishFlags.otp = opts.otp;
+  }
+
   // opts.inquire is set to true automatically for CLI usage
   if (opts.publish && opts.inquire && config.pkgName.startsWith('@')) {
-    opts.publishFlags = {};
     if (opts.access) {
       config.publishPrompt.default = opts.access;
     }
