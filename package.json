@@ -7,12 +7,12 @@
     "test": "npm run test:clean && npm run test:pre && npm run test:run",
     "test:clean": "rm -rf ./test/testarea",
     "test:pre": "npm run lint && mkdir -p \"./test/testarea\"",
-    "test:run": "node_modules/.bin/mocha --delay --reporter spec",
+    "test:run": "mocha --delay --reporter spec",
     "lint": "eslint *.js bin lib test"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:kswedberg/ump.git"
+    "url": "git+ssh://git@github.com/kswedberg/ump.git"
   },
   "type": "module",
   "main": "ump.js",
