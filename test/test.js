@@ -1,6 +1,6 @@
 import path from 'path';
 
-import fs from 'fs-extra';
+import fs from 'node:fs/promises';
 import ump from '../ump.js';
 import {utils, peach} from '../lib/utils.js';
 import {commands} from '../lib/commands.js';
